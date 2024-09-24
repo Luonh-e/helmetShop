@@ -33,8 +33,17 @@ const Navbar = () => {
           <hr className="border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden" />
         </NavLink>
       </ul>
-      <div>
-        <button onClick={goToCart}>cart</button>
+      <div className="flex items-center space-x-4">
+        <div className="hover:bg-black hover:cursor-pointer hover:text-white flex items-center justify-center w-10 h-10 border border-black rounded-full">
+          <i className="fa-solid fa-magnifying-glass text-l"></i>
+        </div>
+        <div className="h-8 border-l-2 border-gray-400"></div>
+        <div
+          onClick={goToCart}
+          className="hover:bg-black hover:cursor-pointer hover:text-white flex items-center justify-center w-10 h-10 border border-black rounded-full"
+        >
+          <i className="fa-solid fa-bag-shopping text-l"></i>
+        </div>
       </div>
     </div>
   );
