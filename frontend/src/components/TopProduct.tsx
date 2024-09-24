@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 interface Product {
-  ID?: number;
+  ID: number;
   Name?: string;
   Price: number;
   Img?: string;
@@ -11,6 +12,12 @@ interface Product {
 const TopProduct: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+
+  const navigate = useNavigate();
+
+  const goToProductDetail = (id: number) => {
+    navigate(`/${id}`);
+  };
 
   useEffect(() => {
     axios
@@ -34,7 +41,11 @@ const TopProduct: React.FC = () => {
   return (
     <div className="grid grid-cols-4 gap-4">
       {products.map((product) => (
-        <div key={product.ID} className="border p-4">
+        <div
+          key={product.ID}
+          onClick={() => goToProductDetail(product.ID)}
+          className="border p-4"
+        >
           <img
             src={product.Img}
             alt={product.Name}

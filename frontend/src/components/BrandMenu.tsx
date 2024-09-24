@@ -11,6 +11,7 @@ const BrandMenu = () => {
   const [data, setData] = useState<DataType[]>([]);
   const [loading, setLoading] = useState(false);
 
+  setLoading(true);
   useEffect(() => {
     const brandMenuData = [
       { img: assets.brdChita },

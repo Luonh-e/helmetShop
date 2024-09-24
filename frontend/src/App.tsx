@@ -7,6 +7,7 @@ import Promotion from "./pages/Promotion";
 import Login from "./pages/Login";
 import Navbar from "./components/Navbar";
 import Cart from "./pages/Cart";
+import ProductDetail from "./pages/ProductDetail";
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/:id" element={<ProductDetail />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/accessory" element={<Accessory />} />
