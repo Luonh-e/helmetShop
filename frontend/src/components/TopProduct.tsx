@@ -1,28 +1,26 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import Loading from "./Loading";
+import ProductItem from "./ProductItem";
 
 interface Product {
   ID: number;
   Name?: string;
-  Price: number;
+  Sale?: number;
+  Price?: number;
   Img?: string;
+  Discount?: number;
+  Dspt?: string;
 }
 
 const TopProduct: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
-  const navigate = useNavigate();
-
-  const goToProductDetail = (id: number) => {
-    navigate(`/${id}`);
-  };
-
   useEffect(() => {
     axios
-      .post(
-        "https://script.google.com/macros/s/AKfycbzwuzliZksW4BAPixQqZLiMKY_iqvbTfLcASKhP219bfd109Mzi-7O4PGJwGcvj9k9D/exec?param=products"
+      .get(
+        "https://script.google.com/macros/s/AKfycbz1uk4PtC2kXvxVo2MeChBOlAzRNBN4g4j0J-JDCfiuL6yxx-sdnO5EXmO37bg4pCeSgA/exec"
       )
       .then((response) => {
         setProducts(response.data);
@@ -36,24 +34,32 @@ const TopProduct: React.FC = () => {
 
   console.log(products);
 
-  if (loading) return <div>Loading...</div>;
-
   return (
-    <div className="grid grid-cols-4 gap-4">
-      {products.map((product) => (
-        <div
-          key={product.ID}
-          onClick={() => goToProductDetail(product.ID)}
-          className="border p-4"
-        >
-          <img
-            src={product.Img}
-            alt={product.Name}
-            className="w-full h-48 object-cover"
+    <div>
+      <div className="flex items-center justify-center my-8">
+        <hr className="flex-grow border-gray-300" />
+        <span className="mx-4 text-orange-500 font-bold text-m tracking-wider">
+          MŨ BẢO HIỂM BÁN CHẠY
+        </span>
+        <hr className="flex-grow border-gray-300" />
+      </div>
+
+      {loading && <Loading />}
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+        {products.map((product, index) => (
+          <ProductItem
+            key={index}
+            ID={product.ID}
+            image={product.Img}
+            name={product.Name}
+            price={product.Sale}
+            oldPrice={product.Price}
+            rating={4}
+            discount={product.Discount}
+            dspt={product.Dspt}
           />
-          <h2 className="text-lg font-bold">{product.Name}</h2>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 };

@@ -9,9 +9,8 @@ interface DataType {
 
 const BrandMenu = () => {
   const [data, setData] = useState<DataType[]>([]);
-  const [loading, setLoading] = useState(false);
+  //  const [loading, setLoading] = useState(false);
 
-  setLoading(true);
   useEffect(() => {
     const brandMenuData = [
       { img: assets.brdChita },
@@ -26,12 +25,12 @@ const BrandMenu = () => {
 
   console.log(data);
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  // if (loading) {
+  //   return <div>Loading...</div>;
+  // }
 
   return (
-    <div className="my-8 flex flex-row space-x-8">
+    <div className="my-8 flex flex-row lg: space-x-8">
       {data.map((brand) => (
         <div key={brand.id}>
           <img src={brand.img} alt={brand.name} className="w-50 h-50" />
