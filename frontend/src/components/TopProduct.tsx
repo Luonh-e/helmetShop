@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import axios from "axios";
 import Loading from "./Loading";
 import ProductItem from "./ProductItem";
+import { useQuery } from "@tanstack/react-query";
 
 interface Product {
   ID: number;
@@ -13,24 +14,18 @@ interface Product {
   Dspt?: string;
 }
 
-const TopProduct: React.FC = () => {
-  const [products, setProducts] = useState<Product[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
+const fetchProducts = async () => {
+  const { data } = await axios.get(
+    "https://script.google.com/macros/s/AKfycbz1uk4PtC2kXvxVo2MeChBOlAzRNBN4g4j0J-JDCfiuL6yxx-sdnO5EXmO37bg4pCeSgA/exec"
+  );
+  return data;
+};
 
-  useEffect(() => {
-    axios
-      .get(
-        "https://script.google.com/macros/s/AKfycbz1uk4PtC2kXvxVo2MeChBOlAzRNBN4g4j0J-JDCfiuL6yxx-sdnO5EXmO37bg4pCeSgA/exec"
-      )
-      .then((response) => {
-        setProducts(response.data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error("Error fetching products:", error);
-        setLoading(false);
-      });
-  }, []);
+const TopProduct: React.FC = () => {
+  const { data: products = [], isLoading } = useQuery<Product[]>({
+    queryKey: ["topProducts"],
+    queryFn: fetchProducts,
+  });
 
   console.log(products);
 
@@ -44,7 +39,7 @@ const TopProduct: React.FC = () => {
         <hr className="flex-grow border-gray-300" />
       </div>
 
-      {loading && <Loading />}
+      {isLoading && <Loading />}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
         {products.map((product, index) => (
           <ProductItem

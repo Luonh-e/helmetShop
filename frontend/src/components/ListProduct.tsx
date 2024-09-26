@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import Loading from "./Loading";
 import ProductItem from "./ProductItem";
@@ -13,31 +14,38 @@ interface Product {
   Dspt?: string;
 }
 
-const ListProduct: React.FC = () => {
-  const [products, setProducts] = useState<Product[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [visibleProducts, setVisibleProducts] = useState<number>(10); // Ban đầu load 10 sản phẩm
+const fetchProducts = async () => {
+  const { data } = await axios.post(
+    "https://script.google.com/macros/s/AKfycbzwuzliZksW4BAPixQqZLiMKY_iqvbTfLcASKhP219bfd109Mzi-7O4PGJwGcvj9k9D/exec?param=products"
+  );
+  return data;
+};
 
-  useEffect(() => {
-    axios
-      .post(
-        "https://script.google.com/macros/s/AKfycbzwuzliZksW4BAPixQqZLiMKY_iqvbTfLcASKhP219bfd109Mzi-7O4PGJwGcvj9k9D/exec?param=products"
-      )
-      .then((response) => {
-        setProducts(response.data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error("Error fetching products:", error);
-        setLoading(false);
-      });
-  }, []);
+const ListProduct: React.FC = () => {
+  const [visibleProducts, setVisibleProducts] = useState<number>(10); // Initially load 10 products
+
+  const {
+    data: products = [],
+    isLoading,
+    isError,
+    error,
+  } = useQuery<Product[]>({
+    queryKey: ["products"],
+    queryFn: fetchProducts,
+  });
 
   const loadMoreProducts = () => {
-    setVisibleProducts((prevVisible) => prevVisible + 10); // Mỗi lần nhấn sẽ load thêm 10 sản phẩm
+    setVisibleProducts((prevVisible) => prevVisible + 10); // Load 10 more products each time
   };
 
-  console.log(products);
+  if (isError) {
+    return (
+      <div>
+        Error:{" "}
+        {error instanceof Error ? error.message : "Error fetching products"}
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -49,7 +57,7 @@ const ListProduct: React.FC = () => {
         <hr className="flex-grow border-gray-300" />
       </div>
 
-      {loading && <Loading />}
+      {isLoading && <Loading />}
 
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
         {products.slice(0, visibleProducts).map((product, index) => (
@@ -67,8 +75,7 @@ const ListProduct: React.FC = () => {
         ))}
       </div>
 
-      {/* Nút "Xem thêm" */}
-      {visibleProducts < products.length && ( // Chỉ hiện nút khi chưa load hết sản phẩm
+      {visibleProducts < products.length && (
         <div className="flex justify-center mt-8">
           <button
             className="bg-orange-500 text-white px-6 py-2 rounded-full hover:bg-orange-600 transition-all duration-300"

@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import ProductItem from "../components/ProductItem";
 import Loading from "../components/Loading";
+import { useQuery } from "@tanstack/react-query";
 
 interface Product {
   ID: number;
@@ -13,25 +14,20 @@ interface Product {
   Dspt?: string;
 }
 
+const fetchProducts = async () => {
+  const { data } = await axios.post(
+    "https://script.google.com/macros/s/AKfycbzwuzliZksW4BAPixQqZLiMKY_iqvbTfLcASKhP219bfd109Mzi-7O4PGJwGcvj9k9D/exec?param=accessories"
+  );
+  return data;
+};
+
 const Accessory: React.FC = () => {
-  const [products, setProducts] = useState<Product[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
   const [visibleProducts, setVisibleProducts] = useState<number>(10);
 
-  useEffect(() => {
-    axios
-      .post(
-        "https://script.google.com/macros/s/AKfycbzwuzliZksW4BAPixQqZLiMKY_iqvbTfLcASKhP219bfd109Mzi-7O4PGJwGcvj9k9D/exec?param=accessories"
-      )
-      .then((response) => {
-        setProducts(response.data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error("Error fetching products:", error);
-        setLoading(false);
-      });
-  }, []);
+  const { data: products = [], isLoading } = useQuery<Product[]>({
+    queryKey: ["accessories"],
+    queryFn: fetchProducts,
+  });
 
   const loadMoreProducts = () => {
     setVisibleProducts((prevVisible) => prevVisible + 10);
@@ -39,7 +35,7 @@ const Accessory: React.FC = () => {
 
   return (
     <div>
-      {loading && <Loading />}
+      {isLoading && <Loading />}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
         {products.slice(0, visibleProducts).map((product, index) => (
           <ProductItem

@@ -1,4 +1,5 @@
 import { useLocation } from "react-router-dom";
+import { useState } from "react";
 import { useShoppingContext } from "../contexts/ShoppingContext";
 
 const ProductDetail: React.FC = () => {
@@ -12,19 +13,21 @@ const ProductDetail: React.FC = () => {
     return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   };
 
-  const { cartItems, addCartItem } = useShoppingContext();
+  const { addCartItem } = useShoppingContext();
 
-  console.log(cartItems);
+  const [addedToCart, setAddedToCart] = useState(false);
+
+  const handleAddToCart = () => {
+    addCartItem(state);
+    setAddedToCart(true);
+    setTimeout(() => setAddedToCart(false), 4000);
+  };
 
   return (
     <div className="container mx-auto py-10 px-4">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <div className="flex justify-center">
-          <img
-            src={image}
-            alt="Nón bảo hiểm Fullface Barock sợi thủy tinh cao cấp"
-            className="max-w-full h-80"
-          />
+          <img src={image} alt={name} className="max-w-full h-80" />
         </div>
         <div>
           <h1 className="text-2xl font-bold uppercase">{name}</h1>
@@ -81,9 +84,16 @@ const ProductDetail: React.FC = () => {
               ✔ Giặt mũ miễn phí trọn đời (Chỉ áp dụng với mũ còn tem của shop)
             </p>
           </div>
+
+          {addedToCart && (
+            <div className="mt-4 p-3 bg-green-100 text-green-800 border border-green-400 rounded-md">
+              Sản phẩm đã được thêm vào giỏ hàng!
+            </div>
+          )}
+
           <div className="flex gap-4 mt-6">
             <button
-              onClick={() => addCartItem(state)}
+              onClick={handleAddToCart}
               className="bg-black text-white py-3 px-6 uppercase font-bold hover:bg-white hover:text-black transition"
             >
               Thêm vào giỏ hàng

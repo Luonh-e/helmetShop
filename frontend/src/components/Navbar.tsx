@@ -1,12 +1,14 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { assets } from "../assets/assets";
+import { useShoppingContext } from "../contexts/ShoppingContext";
 
 const Navbar = () => {
   const navigate = useNavigate();
   const [showSearchInput, setShowSearchInput] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { cartItems } = useShoppingContext();
 
   const goToCart = () => {
     navigate("/cart");
@@ -64,6 +66,11 @@ const Navbar = () => {
             className="relative hover:bg-black hover:cursor-pointer hover:text-white flex items-center justify-center w-10 h-10 border border-black rounded-full"
           >
             <i className="fa-solid fa-bag-shopping text-l"></i>
+            {cartItems.length > 0 && (
+              <span className="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
+                {cartItems.length}
+              </span>
+            )}
           </div>
         </div>
         <ul className="md:flex items-start gap-5 font-medium hidden">
@@ -97,9 +104,14 @@ const Navbar = () => {
           </div>
           <div
             onClick={goToCart}
-            className="hover:bg-black hover:cursor-pointer hover:text-white flex items-center justify-center w-10 h-10 border border-black rounded-full"
+            className="relative hover:bg-black hover:cursor-pointer hover:text-white flex items-center justify-center w-10 h-10 border border-black rounded-full"
           >
             <i className="fa-solid fa-bag-shopping text-l"></i>
+            {cartItems.length > 0 && (
+              <span className="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
+                {cartItems.length}
+              </span>
+            )}
           </div>
         </div>
       </div>
@@ -109,10 +121,10 @@ const Navbar = () => {
           onClick={closeMenu}
         >
           <div
-            className="md:hidden absolute border-radius left-0 w-full bg-white z-50 p-4"
-            onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside the menu
+            className="md:hidden absolute left-0 right-0 top-8 w-5/6 bg-white z-50 p-4 border border-gray-300 rounded-lg shadow-lg mx-auto"
+            onClick={(e) => e.stopPropagation()}
           >
-            <ul className="my-12 flex flex-col items-center gap-4 font-medium">
+            <ul className="flex flex-col items-center gap-4 font-medium">
               <NavLink to="/" onClick={closeMenu}>
                 <li className="py-2">NÓN BẢO HIỂM</li>
               </NavLink>

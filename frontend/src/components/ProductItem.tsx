@@ -46,7 +46,7 @@ const ProductItem: React.FC<ProductItemProps> = ({
   return (
     <div
       onClick={handleGoToDetail}
-      className="flex flex-col items-center space-y-2 p-4"
+      className="cursor-pointer flex flex-col items-center space-y-2 p-4 cu"
     >
       <div className="relative">
         <img src={image} alt={name} className="w-full h-38 object-cover" />
