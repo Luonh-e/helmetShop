@@ -1,4 +1,3 @@
-Giới thiệu
 Đây là một ứng dụng web được xây dựng bằng React dành cho cửa hàng mũ bảo hiểm, với chức năng hiển thị danh sách các sản phẩm mũ bảo hiểm bán chạy. Dữ liệu sản phẩm được lưu trữ trên Google Sheets và ứng dụng sử dụng API từ Google Sheets để lấy dữ liệu.
 
 Để quản lý dữ liệu hiệu quả, dự án sử dụng **TanStack Query** (trước đây gọi là React Query) để xử lý việc gọi API, caching, đồng bộ và cập nhật dữ liệu. `TanStack Query` đơn giản hóa việc quản lý dữ liệu từ server trong ứng dụng bằng cách cung cấp các tính năng mạnh mẽ như:
