@@ -1,11 +1,16 @@
-Giới thiệu
-Đây là một ứng dụng web được xây dựng bằng React dành cho cửa hàng mũ bảo hiểm, với chức năng hiển thị danh sách các sản phẩm mũ bảo hiểm bán chạy. Dữ liệu sản phẩm được lưu trữ trên Google Sheets và ứng dụng sử dụng API từ Google Sheets để lấy dữ liệu.
+# Helmet Store - React Web Application
 
-Để quản lý dữ liệu hiệu quả, dự án sử dụng **TanStack Query** (trước đây gọi là React Query) để xử lý việc gọi API, caching, đồng bộ và cập nhật dữ liệu. `TanStack Query` đơn giản hóa việc quản lý dữ liệu từ server trong ứng dụng bằng cách cung cấp các tính năng mạnh mẽ như:
-- **Tự động cập nhật dữ liệu trong nền**: Giúp dữ liệu luôn mới mà không cần phải làm mới thủ công.
-- **Caching dữ liệu**: Cải thiện hiệu năng bằng cách lưu trữ dữ liệu đã tải, tránh các yêu cầu lặp lại không cần thiết.
-- **Tự động thử lại khi có lỗi**: Xử lý các yêu cầu không thành công và đảm bảo giao diện luôn phản ánh trạng thái chính xác của dữ liệu.
+## Giới thiệu
+**Helmet Store** là một ứng dụng web được xây dựng bằng React, phục vụ cho cửa hàng bán mũ bảo hiểm với chức năng hiển thị danh sách các sản phẩm bán chạy nhất. Dữ liệu sản phẩm được lưu trữ trên **Google Sheets** và được truy xuất thông qua **Google Sheets API** để hiển thị trên giao diện người dùng.
 
-Để quản lý trạng thái chung của ứng dụng như các tuỳ chọn của người dùng hoặc trạng thái giỏ hàng, ứng dụng sử dụng **Context API**
+### Quản lý dữ liệu với TanStack Query
+Để tối ưu hóa việc quản lý dữ liệu, dự án sử dụng **TanStack Query** (trước đây là React Query) để xử lý:
+- **Gọi API**: Kết nối và lấy dữ liệu từ Google Sheets.
+- **Caching dữ liệu**: Giảm thiểu số lần gọi API bằng cách lưu trữ dữ liệu đã tải.
+- **Đồng bộ và cập nhật trong nền**: Dữ liệu được tự động cập nhật mà không cần tải lại trang.
 
-url: http://luonh.io.vn/
+### Quản lý trạng thái với Context API
+Để quản lý **global state** như các tùy chọn người dùng, trạng thái giỏ hàng ứng dụng sử dụng **Context API** của React. **Context API** giúp chia sẻ và quản lý trạng thái chung giữa các component mà không cần truyền props qua nhiều cấp độ, giúp mã nguồn dễ bảo trì và mở rộng.
+
+---
+> **Truy cập ứng dụng tại:** [Helmet Store](http://luonh.io.vn/)
