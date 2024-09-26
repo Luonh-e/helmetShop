@@ -1,4 +1,5 @@
 import { useLocation } from "react-router-dom";
+import { useShoppingContext } from "../contexts/ShoppingContext";
 
 const ProductDetail: React.FC = () => {
   const location = useLocation();
@@ -10,6 +11,10 @@ const ProductDetail: React.FC = () => {
   const formatPrice = (price: number) => {
     return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   };
+
+  const { cartItems, addCartItem } = useShoppingContext();
+
+  console.log(cartItems);
 
   return (
     <div className="container mx-auto py-10 px-4">
@@ -41,8 +46,6 @@ const ProductDetail: React.FC = () => {
             <li>Đạt tiêu chuẩn Âu Châu ECE R22.05</li>
             <li>Gọn nhẹ, an toàn, phù hợp với thể trạng người Việt Nam.</li>
           </ul>
-
-          {/* Thông tin thêm */}
           <table className="w-full mb-6 text-sm">
             <tbody>
               <tr>
@@ -68,8 +71,6 @@ const ProductDetail: React.FC = () => {
               </tr>
             </tbody>
           </table>
-
-          {/* Chính sách hỗ trợ */}
           <div className="border border-red-500 bg-red-50 p-4 rounded-md space-y-2 text-sm">
             <p>
               ✔ Cam kết chính hãng tất cả sản phẩm cung cấp tại ONGHOANGNONMU
@@ -80,13 +81,14 @@ const ProductDetail: React.FC = () => {
               ✔ Giặt mũ miễn phí trọn đời (Chỉ áp dụng với mũ còn tem của shop)
             </p>
           </div>
-
-          {/* Nút hành động */}
           <div className="flex gap-4 mt-6">
-            <button className="bg-black text-white py-3 px-6 uppercase font-bold hover:bg-white hover:border hover:text-black transition">
+            <button
+              onClick={() => addCartItem(state)}
+              className="bg-black text-white py-3 px-6 uppercase font-bold hover:bg-white hover:text-black transition"
+            >
               Thêm vào giỏ hàng
             </button>
-            <button className="bg-black text-white py-3 px-6 uppercase font-bold hover:bg-white hover:border hover:text-black transition">
+            <button className="bg-black text-white py-3 px-6 uppercase font-bold hover:bg-white hover:text-black transition">
               Gọi 0333.017.242
             </button>
           </div>

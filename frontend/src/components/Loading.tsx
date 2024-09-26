@@ -1,7 +1,27 @@
+import { useState, useEffect } from "react";
+
 const Loading = () => {
+  const [itemsToShow, setItemsToShow] = useState(5); // Mặc định là 10 phần tử
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 640) {
+        setItemsToShow(2);
+      } else {
+        setItemsToShow(5);
+      }
+    };
+
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8 mb-28">
-      {[...Array(10)].map((_, index) => (
+      {[...Array(itemsToShow)].map((_, index) => (
         <div
           key={index}
           className="border border-gray-300 shadow rounded-md p-4 w-full mx-auto"

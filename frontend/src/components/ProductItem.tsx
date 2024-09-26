@@ -20,7 +20,6 @@ const ProductItem: React.FC<ProductItemProps> = ({
   oldPrice = 99999999,
   rating,
   discount,
-  dspt,
 }) => {
   const haveDiscount = discount !== 0;
 
@@ -35,7 +34,6 @@ const ProductItem: React.FC<ProductItemProps> = ({
       oldPrice,
       rating,
       discount,
-      dspt,
     };
 
     navigate(`/${ID}`, { state: productDetails });
