@@ -25,7 +25,7 @@ exports.register = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, salt);
 
     let username =
-      name.split(" ").join("").toLowerCase() + Math.floor(Math.random() * 1000); // Ví dụ: "nguyenvana123"
+      name.split(" ").join("").toLowerCase() + Math.floor(Math.random() * 1000);
 
     let isUsernameUnique = false;
     let attemptCount = 0;

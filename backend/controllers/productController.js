@@ -1,6 +1,5 @@
 const Product = require("../models/Product");
 
-// controllers/productController.js
 exports.createProduct = async (req, res) => {
   const { name, price, sale, img, stock, dspt, discount } = req.body;
 
@@ -40,7 +39,7 @@ exports.getProducts = async (req, res) => {
 
 exports.getTopProducts = async (req, res) => {
   try {
-    const topProducts = await Product.find().sort({ salesCount: -1 }).limit(10);
+    const topProducts = await Product.find().sort({ salesCount: -1 }).limit(5);
 
     res.status(200).json(topProducts);
   } catch (err) {
