@@ -1,4 +1,4 @@
-# E-commerce Backend
+# Basic E-commerce Backend
 
 This backend provides API functionality for an e-commerce platform, covering essential features such as order management, cart handling, user authentication, and product retrieval.
 
