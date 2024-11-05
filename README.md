@@ -10,4 +10,4 @@
 ### Quản lý trạng thái với Context API
 Để quản lý **global state** như các tùy chọn người dùng, trạng thái giỏ hàng ứng dụng sử dụng **Context API** của React. **Context API** giúp chia sẻ và quản lý trạng thái chung giữa các component mà không cần truyền props qua nhiều cấp độ, giúp mã nguồn dễ bảo trì và mở rộng.
 
-> **Truy cập ứng dụng tại:** [Helmet Store](http://luonh.io.vn/): http://luonh.io.vn/
+> **Truy cập ứng dụng tại:** [Helmet Store](http://luonh.io.vn/) Xoá s trong 'https:' => 'http:' nếu không truy cập được
