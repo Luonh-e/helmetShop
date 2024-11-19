@@ -46,17 +46,21 @@ const ProductItem: React.FC<ProductItemProps> = ({
   return (
     <div
       onClick={handleGoToDetail}
-      className="cursor-pointer flex flex-col items-center space-y-2 p-4 cu"
+      className="cursor-pointer flex flex-col items-center space-y-2 p-4 bg-white transition-transform transform hover:scale-105 hover:shadow-lg"
     >
       <div className="relative">
-        <img src={image} alt={name} className="w-full h-38 object-cover" />
+        <img
+          src={image}
+          alt={name}
+          className="w-full h-38 object-cover rounded-t-md"
+        />
         {haveDiscount && (
           <div className="absolute top-0 right-0 bg-orange-500 text-white rounded-full p-2 text-sm">
             -{discount}%
           </div>
         )}
       </div>
-      <div className="text-center text-sm font-semibold">
+      <div className="text-center text-sm font-semibold text-gray-700 hover:text-gray-900">
         {name.length > 30 ? `${name.substring(0, 30)}...` : name}
       </div>
       <div className="flex justify-center text-yellow-400">
@@ -74,3 +78,4 @@ const ProductItem: React.FC<ProductItemProps> = ({
 };
 
 export default ProductItem;
+
